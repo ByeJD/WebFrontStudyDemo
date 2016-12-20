@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>http://ife.baidu.com/task/detail?taskId=4</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+			
+		}
+		#wrap{
+			border:1px solid red;
+			/*0position: absolute;*//*dont use this */
+		}
+		.content{
+			background-color: #ccc;
+			height:200px;
+			width:400px;
+			margin: 0 auto;
+			position: absolute;
+			
+			overflow: hidden;
+
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+		}
+
+	.corner{
+			position: absolute;
+			width: 100px;
+			height:100px;
+			border-radius: 50%;
+			background-color:#fc0;
+		}
+		.leftUpper{
+			left:-50px;
+			top:-50px;
+		}
+		.rightBottom{
+			right:-50px;
+			bottom:-50px;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="content">
+            <div class="leftUpper corner"></div>
+			<div class="rightBottom corner"></div>
+		</div>
+	</div>	
+</body>
+</html>
