@@ -1,0 +1,542 @@
+.slideDownLogo-content, .first-div .content, .second-div .second-content, .joinUs-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/************************************
+ * define variables
+ ************************************/
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Microsoft YaHei";
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
+
+/****************************************
+ * global normalize
+ ****************************************/
+#nav {
+  height: 45px;
+  line-height: 45px;
+}
+
+#content {
+  max-width: 1264px;
+  margin: 0 auto;
+  width: 1264px;
+}
+
+.newWorld {
+  float: left;
+  height: 45px;
+  width: 80px;
+  padding-left: 121px;
+  background: url(./Images/cry_32.png) no-repeat 40px center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.menu {
+  float: right;
+  height: 45px;
+}
+.menu li {
+  display: inline-block;
+  margin-right: 50px;
+}
+.menu li a {
+  display: inline-block;
+  height: 40px;
+  color: #888;
+  font-size: 14px;
+  font-family: "Microsoft YaHei";
+}
+.menu li a:hover {
+  border-bottom: 5px solid #ff6666;
+}
+
+.banner-content-pic-wrapper {
+  background-image: url("./Images/fairytale.jpg");
+  height: 500px;
+  width: 1264px;
+  position: relative;
+}
+
+.banner-content-pic {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 170px;
+}
+
+.text-timeOfNewLife {
+  color: rgba(57, 192, 222, 0.64);
+  font-size: 45px;
+  font-family: serif;
+  font-weight: bold;
+}
+
+.text-slogan {
+  color: rgba(88, 157, 183, 0.79);
+}
+
+.btn-startExploring {
+  border: none;
+  background-color: #ff6666;
+  color: #fff;
+  text-align: center;
+  width: 215px;
+  height: 45px;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 40px;
+}
+
+.banner-content-text ul {
+  margin-bottom: 30px;
+}
+.banner-content-text ul li.text {
+  display: inline-block;
+  color: #333;
+  background: url(./Images/smile_64.png) no-repeat center center;
+  padding-top: 130px;
+  margin: 0 50px;
+}
+.banner-content-text ul li.vertical-line {
+  display: inline-block;
+  font-size: 45px;
+  color: #333;
+}
+
+.aboutNewWorld {
+  background-color: #ececec;
+  padding-bottom: 110px;
+}
+
+.firstSection {
+  padding: 75px 0;
+}
+
+.fs-pic {
+  height: 64px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fs-text {
+  font-size: 40px;
+  color: #888;
+  text-align: center;
+}
+
+.searchSection {
+  background: url("./Images/test.jpg") no-repeat;
+  text-align: center;
+  height: 342px;
+  color: #fff;
+}
+.searchSection .first-line {
+  padding-top: 70px;
+  font-size: 25px;
+}
+.searchSection .second-line {
+  font-size: 10px;
+  border: 1px solid #fff;
+  width: 30px;
+  display: inline-block;
+  margin-top: 7px;
+}
+.searchSection .third-line {
+  font-size: 10px;
+  margin-top: 5px;
+}
+.searchSection .fourth-line {
+  margin-top: 60px;
+  margin-left: 25px;
+}
+
+select {
+  border: none;
+  width: 200px;
+  margin-left: 25px;
+  height: 35px;
+  padding: 10px 0;
+  background-color: #ff6666;
+}
+
+.btn-search {
+  width: 200px;
+  height: 35px;
+  border: none;
+  background-color: #ff6666;
+  padding: 10px;
+  margin-bottom: 3px;
+}
+
+.activity {
+  margin-top: 80px;
+  text-align: center;
+}
+.activity ul li {
+  display: inline-block;
+  margin-left: 60px;
+}
+.activity ul li img {
+  border: 1px solid #BBB;
+  padding: 5px;
+  background-color: #fff;
+}
+.activity ul li p:nth-child(even) {
+  margin-bottom: 5px;
+}
+.activity ul li p:nth-child(odd) {
+  font-size: 14px;
+  color: #888;
+}
+.activity ul li:nth-child(2) {
+  position: relative;
+  top: 5px;
+}
+
+#firstPtag {
+  font-size: 17px;
+  letter-spacing: 35px;
+  font-weight: bold;
+  margin-left: 30px;
+}
+
+#secondPtag {
+  font-size: 14px;
+  color: #888;
+}
+
+.logo1 {
+  background-image: url(./Images/fairytale.jpg);
+}
+
+.slideDownLogo {
+  width: 840px;
+  height: 400px;
+  float: left;
+  position: relative;
+}
+
+.slideDownText {
+  width: 420px;
+  height: 400px;
+  float: left;
+  position: relative;
+}
+.slideDownText::after {
+  content: '';
+  position: absolute;
+  border-width: 20px;
+  border-color: transparent red transparent transparent;
+  border-style: solid;
+  top: 240px;
+  right: 100%;
+}
+
+.slideDown p {
+  color: #457c9c;
+  text-align: center;
+}
+
+.text-new-world {
+  margin-top: 70px;
+  font-size: 30px;
+}
+
+.text-time {
+  font-size: 120px;
+  line-height: 110px;
+}
+
+.text-who {
+  margin-top: 20px;
+}
+
+.slideDown h2 {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.text-newWorldisAnewWorld {
+  margin: 0 30px;
+}
+
+.slideDown a {
+  color: #fff;
+  display: inline-block;
+  font-size: 28px;
+  height: 43px;
+  width: 105px;
+  /* border: 1px solid #ff6666; */
+  background-color: #ff6666;
+  padding: 10px;
+}
+
+p.more {
+  margin-top: 30px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: 30px;
+}
+
+.active {
+  background-color: #111;
+}
+
+.first-div {
+  height: 500px;
+  width: 420px;
+  float: left;
+  background-color: #ff6666;
+  position: relative;
+  text-align: center;
+}
+.first-div .content {
+  color: #fff;
+  text-align: center;
+}
+.first-div .content p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.first-div .content p span {
+  display: inline-block;
+  border-top: 1px solid #fff;
+  background-color: #fff;
+  width: 50px;
+  margin-top: 10px;
+}
+.first-div .content p a {
+  background-color: #fb6a6a;
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #fff;
+  margin: 20px;
+  padding: 5px 0;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+}
+
+.second-div {
+  height: 500px;
+  width: 420px;
+  float: left;
+  background-color: #fff;
+  position: relative;
+}
+.second-div .second-content {
+  color: black;
+  text-align: center;
+}
+.second-div .second-content p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.second-div .second-content p span {
+  display: inline-block;
+  border-top: 1px solid black;
+  width: 50px;
+  margin-top: 10px;
+}
+.second-div .second-content p a {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #fb6a6a;
+  margin: 20px;
+  font-size: 20px;
+  padding: 5px 0;
+  color: #fb6a6a;
+  height: 30px;
+  line-height: 30px;
+}
+.second-div::after {
+  content: '';
+  position: absolute;
+  border-width: 20px;
+  border-color: transparent transparent transparent #fff;
+  border-style: solid;
+  top: 240px;
+  left: 100%;
+}
+
+.third-div {
+  height: 500px;
+  width: 420px;
+  float: left;
+  background-image: url(./Images/8.jpg);
+}
+
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.volunteerDiv {
+  text-align: center;
+  margin-top: 80px;
+}
+.volunteerDiv h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.volunteerDiv h2 span {
+  display: inline-block;
+  width: 50px;
+  border-top: 2px solid #fb6a6a;
+  background-color: #fb6a6a;
+}
+.volunteerDiv p {
+  font-size: 13px;
+  color: #AAA;
+}
+
+.explantion {
+  float: left;
+  margin-left: 120px;
+}
+.explantion h3 {
+  font-size: 13px;
+  color: #333;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.explantion li {
+  margin-bottom: 5px;
+}
+.explantion li p {
+  text-align: left;
+}
+.explantion li p.moreInformation {
+  text-align: right;
+  background: url(./Images/arrow_.png) no-repeat 245px;
+}
+
+.form {
+  float: right;
+  width: 628px;
+  margin-right: 120px;
+  font-size: 14px;
+}
+.form span {
+  background-color: #ddd;
+  display: inline-block;
+  width: 280px;
+  text-align: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 5px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+.form span input {
+  border: none;
+  background: #ddd;
+  height: 30px;
+  width: 200px;
+  padding: 5px;
+}
+.form span textarea {
+  border: none;
+  width: 600px;
+  height: 80px;
+  background: #ddd;
+}
+.form span.submit {
+  width: 600px;
+  text-align: center;
+}
+.form span.descriptYourDream {
+  border: none;
+  width: 600px;
+  height: 105px;
+  background: #ddd;
+}
+
+.form span input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #eee inset;
+}
+
+.wrapper {
+  margin: 70px auto;
+}
+
+.joinUs {
+  position: relative;
+  text-align: center;
+  background: #33363F;
+  height: 420px;
+  color: #fff;
+}
+
+.joinUs-content {
+  text-align: center;
+}
+.joinUs-content input[type=submit] {
+  font-size: 17px;
+  background-color: #666;
+  height: 50px;
+  line-height: 42px;
+  width: 85px;
+  display: inline-block;
+  border: none;
+}
+.joinUs-content input[type=text] {
+  height: 50px;
+  width: 510px;
+  margin-top: 30px;
+  border: none;
+  padding-left: 5px;
+}
+.joinUs-content img {
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+#footer {
+  background-color: #30303A;
+  color: #fff;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+}
+
+span.textalignright {
+  position: absolute;
+  right: 200px;
+  font-size: 12px;
+}
+
+span.textalignleft {
+  position: absolute;
+  left: 200px;
+  font-size: 12px;
+}
