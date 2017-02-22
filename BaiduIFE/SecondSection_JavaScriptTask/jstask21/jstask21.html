@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create obejct</title>
+
+</head>
+<body>
+    <div><textarea name="" id="queue-textarea" cols="42" rows="10"></textarea></div>
+    <button id="left-in" type="button">左侧入</button>
+    <button id="right-in" type="button">右侧入</button>
+    <button id="left-out" type="button">左侧出</button>
+    <button id="right-out" type="button">右侧出</button>
+    <input type="text" style="width:60px;">
+    <input type="button" value="模糊匹配" id="fuzzy-matching">
+    <div id="queue-textbox-content"></div>   <!--最好使用class,因为使用id的话创建两个会有重复的id-->
+</body>
+<script>
+
+    var $ = function(id){
+		return document.getElementById(id);
+	}
+    // 输入 一个控件的id名称
+    // 过程
+    // 输出 div元素的改变。
+    function createObject(queueIn)
+    {
+        var queueObj = new Object();
+        queueObj.data=[];
+        queueObj.ctlName = queueIn;
+
+        // 
+        queueObj.leftIn = function(){
+            var res = $(queueObj.ctlName).value.split(/,?\s+|,+/);
+            res.forEach(function(item,index,array){
+                if(item.length > 0)
+                {
+                    queueObj.data.unshift(item);
+                }
+            });
+            if(queueObj.data.length > 0){
+                queueObj.render();
+            }  
+        };
+        queueObj.rightIn = function(){
+            var res =  $(queueObj.ctlName).value.split(/,?\s+|,+/);
+            res.forEach(function(item,index,array){
+                if(item.length > 0)
+                {
+                    queueObj.data.push(item);
+                }
+            });
+            if(queueObj.data.length > 0){
+                queueObj.render();
+            }   
+        };
+        queueObj.rightOut = function(){
+            if(queueObj.data.length===0){
+			    alert("there is no element in the queue");
+            }else{
+                alert(queueObj.data.pop());
+            }
+            queueObj.render();
+        };
+        queueObj.leftOut = function(){
+            if(queueObj.data.length===0){
+			    alert("there is no element in the queue");
+            }else{
+                alert(queueObj.data.shift());
+            }
+            queueObj.render();
+        };
+
+       // queueObj.removeElement = function(i){
+		    //var targetElement = arguments[0].currentTarget;
+            //console.log(targetElement);
+           // console.log(targetElement.dataset.num)
+            //console.log(typeof e.dataset.num);
+            //console.log(e.getAttribute("data-num"));
+       //     console.log(arguments[0]);
+            /*queueObj.data = queueObj.data.filter(function(item,index,array){
+               return index!=parseInt(arguments[0].dataset.num);
+               //return index != i;
+            });
+            queueObj.render();*/
+	   // };
+
+       /**
+        * my version
+        */
+        /*queueObj.addDelEvent = function(){
+            var t = document.getElementsByClassName("dataDiv");
+            for(var i=0;i<t.length;i++)
+            {
+                t[i].addEventListener('click',function(x){
+                    return function(){
+                        queueObj.data = queueObj.data.filter(function(item,index,array){
+                           return index!=parseInt(x.dataset.num);
+                        });
+                        queueObj.render();
+                     }; 
+                    }(t[i]));
+            }
+        };*/
+         queueObj.addDelEvent = function(){
+            var t = document.getElementsByClassName("dataDiv");
+            for(var i=0;i<t.length;i++)
+            {
+                t[i].addEventListener('click',function(x){
+                    return function(){
+                       queueObj.deleteElement(x);
+                     }; 
+                    }(t[i]));
+            }
+        };
+
+        queueObj.deleteElement = function(index){
+            queueObj.data.splice(index,1);
+            queueObj.render();
+        }
+        // 获取queue-wrap元素下的dataDiv,并注册删除事件，
+        queueObj.render = function(){
+            var html = "";
+            for(var i = 0;i < queueObj.data.length;i++){
+                html += "<div class='dataDiv' style='float:left;background-color:red;margin:5px;' data-num='"+i+"'><span style='color:white;padding:5px;'>"+queueObj.data[i]+"</span></div>";
+            }
+            $("queue-textbox-content").innerHTML = html;
+            queueObj.addDelEvent();
+        };
+        return queueObj;
+    }
+    var t = createObject("queue-textarea");
+    $("left-in").addEventListener("click",t.leftIn);
+    $("right-in").addEventListener("click",t.rightIn);
+    $("left-out").addEventListener("click",t.leftOut);
+    $("right-out").addEventListener("click",t.rightOut);
+</script>
+</html>
