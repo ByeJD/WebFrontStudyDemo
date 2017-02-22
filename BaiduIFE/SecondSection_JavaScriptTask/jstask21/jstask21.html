@@ -3,35 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>create obejct</title>
+    <style>
+        .hobby-dataDiv{
+            float: left;
+            background-color: red;
+            margin:5px;
+        }
+        .hobby-dataDiv:hover{
+            content:'delete';
+            background-color: green;
+            color:#fff;
+        }
+    </style>
 
 </head>
 <body>
-    <div><textarea name="" id="queue-textarea" cols="42" rows="10"></textarea></div>
-    <button id="left-in" type="button">左侧入</button>
-    <button id="right-in" type="button">右侧入</button>
-    <button id="left-out" type="button">左侧出</button>
-    <button id="right-out" type="button">右侧出</button>
-    <input type="text" style="width:60px;">
-    <input type="button" value="模糊匹配" id="fuzzy-matching">
-    <div id="queue-textbox-content"></div>   <!--最好使用class,因为使用id的话创建两个会有重复的id-->
+
+    <div id="hobby"></div>
+    <div id="tag"></div>
+    
 </body>
 <script>
 
     var $ = function(id){
 		return document.getElementById(id);
 	}
+	var tagOption = {
+		containName:"tag",
+		ctrName:"input"
+	};
+	var hobbyOption={
+		containName:"hobby",              // 外层的名称
+		ctrName:"textarea",                     // 创建的标签的类型 input or textarea
+	}
     // 输入 一个控件的id名称
     // 过程
     // 输出 div元素的改变。
-    function createObject(queueIn)
+    function createObject(option)
     {
         var queueObj = new Object();
-        queueObj.data=[];
-        queueObj.ctlName = queueIn;
 
-        // 
+        queueObj.data=[];
+        queueObj.sourceId =  option.containName+"-"+option.ctrName;
+    
+        queueObj.init = function(){
+	        var container = $(option.containName);
+	        var html1 = '<button id="'+option.containName+'-left-in" type="button">左侧入</button>'   + 
+	       				'<button id="'+option.containName+'-right-in" type="button">右侧入</button>'  +
+				        '<button id="'+option.containName+'-left-out" type="button">左侧出</button>'  +
+				        '<button id="'+option.containName+'-right-out" type="button">右侧出</button>' +
+				        '<div id="queue-'+option.containName+'-content"></div>';  
+
+	        var tag = document.createElement(option.ctrName);
+	        tag.setAttribute("id", queueObj.sourceId);
+	        container.innerHTML = "<div>"+tag.outerHTML+"</div>" + html1;
+	        $(hobbyOption.containName+"-left-in").addEventListener("click",hobbyObj.leftIn);
+    		$(hobbyOption.containName+"-right-in").addEventListener("click",hobbyObj.rightIn);
+    		$(hobbyOption.containName+"-left-out").addEventListener("click",hobbyObj.leftOut);
+    		$(hobbyOption.containName+"-right-out").addEventListener("click",hobbyObj.rightOut);
+
+
+    			// heyjax
+    		   $("queue-"+option.containName+"-content").addEventListener('mouseover',function(event) {
+		       event.target.textContent = '删除：' + event.target.textContent;
+		      });
+		       $("queue-"+option.containName+"-content").addEventListener('mouseout',function(event) {
+		        event.target.textContent = event.target.textContent.replace(/删除：/,'');
+		      });
+        }
+        
         queueObj.leftIn = function(){
-            var res = $(queueObj.ctlName).value.split(/,?\s+|,+/);
+            var res = $(queueObj.sourceId).value.split(/,?\s+|,+/);
             res.forEach(function(item,index,array){
                 if(item.length > 0)
                 {
@@ -43,7 +85,7 @@
             }  
         };
         queueObj.rightIn = function(){
-            var res =  $(queueObj.ctlName).value.split(/,?\s+|,+/);
+            var res =  $(queueObj.sourceId).value.split(/,?\s+|,+/);
             res.forEach(function(item,index,array){
                 if(item.length > 0)
                 {
@@ -86,7 +128,7 @@
 	   // };
 
        /**
-        * my version
+        * my version,
         */
         /*queueObj.addDelEvent = function(){
             var t = document.getElementsByClassName("dataDiv");
@@ -102,8 +144,9 @@
                     }(t[i]));
             }
         };*/
+        //从其他人那里模仿的处理方法，代码的写的简洁优雅
          queueObj.addDelEvent = function(){
-            var t = document.getElementsByClassName("dataDiv");
+            var t = document.getElementsByClassName(option.containName+"-dataDiv");
             for(var i=0;i<t.length;i++)
             {
                 t[i].addEventListener('click',function(x){
@@ -113,26 +156,55 @@
                     }(t[i]));
             }
         };
+        // queueObj.changeTextEvent = function(){
+        // 	var t = document.getElementsByClassName(option.containName+"-dataDiv");
+        // 	for(var i=0;i<t.length;i++)
+        //     {
+        //     	// var temp = t[i].children[0].innerHTML;
+        //      //    t[i].addEventListener('mouseover',function(x){
+        //      //        return function(){
+        //      //           x.children[0].innerHTML = "delete";
+        //      //         }; 
+        //      //        }(t[i]));
+        //      //    t[i].addEventListener('mouseout',function(x){
+        //      //        return function(){
+        //      //           x.children[0].innerHTML = x.children[0].innerHTML;
+        //      //         }; 
+        //      //        }(t[i]));
+        //      //    t[]
+        //     }
+
+        // };
 
         queueObj.deleteElement = function(index){
             queueObj.data.splice(index,1);
             queueObj.render();
-        }
-        // 获取queue-wrap元素下的dataDiv,并注册删除事件，
+        };
+ 
         queueObj.render = function(){
             var html = "";
             for(var i = 0;i < queueObj.data.length;i++){
-                html += "<div class='dataDiv' style='float:left;background-color:red;margin:5px;' data-num='"+i+"'><span style='color:white;padding:5px;'>"+queueObj.data[i]+"</span></div>";
+                html += "<div class='"+option.containName+"-dataDiv'  data-num='"+i+"'><span style='color:white;padding:5px;'>"+queueObj.data[i]+"</span></div>";
             }
-            $("queue-textbox-content").innerHTML = html;
+            $("queue-"+option.containName+"-content").innerHTML = html;
             queueObj.addDelEvent();
+           // queueObj.changeTextEvent();
         };
         return queueObj;
     }
-    var t = createObject("queue-textarea");
-    $("left-in").addEventListener("click",t.leftIn);
-    $("right-in").addEventListener("click",t.rightIn);
-    $("left-out").addEventListener("click",t.leftOut);
-    $("right-out").addEventListener("click",t.rightOut);
+
+    // 如果要创建类似的，需要添加css文件
+    // var tagObj = createObject(tagOption);
+    // tagObj.init();
+    // $(tagOption.containName+"-left-in").addEventListener("click",tagObj.leftIn);
+    // $(tagOption.containName+"-right-in").addEventListener("click",tagObj.rightIn);
+    // $(tagOption.containName+"-left-out").addEventListener("click",tagObj.leftOut);
+    // $(tagOption.containName+"-right-out").addEventListener("click",tagObj.rightOut);
+
+
+
+    var hobbyObj = createObject(hobbyOption);
+    hobbyObj.init();
+
 </script>
 </html>
