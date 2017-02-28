@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>custom_right_click</title>
+	<style>
+	 	*{
+	 		margin:0;
+	 		padding:0;
+	 	}
+		div#contextmenuContainer{
+			height:600px;
+			width: 600px;
+			border:1px solid blue;
+			position: relative;
+		}
+		div#contextmenu{
+			width: 60px;
+			height:60px;
+			text-align: center;
+			border: 1px solid #444;
+			background-color: #ccc;
+			display: none;
+			position: absolute;
+		}
+		div#contextmenu ul{
+			list-style: none;
+		}
+		a{
+			text-decoration:none;
+			color:#fff;
+		}
+	</style>
+	<script src="custom_right_click.js"></script>
+</head>
+<body>
+ 	<div oncontextmenu="func(event)" id="contextmenuContainer">
+		<div id="contextmenu" >
+			<ul>
+                <li><a href="http://ife.baidu.com/course/detail/id/26">IFE</a></li>
+				<li><a href="https://www.zhihu.com/">知乎</a></li>
+			</ul>
+		</div>
+		<p></p>
+	</div>
+</body>
+<script>
+
+</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>custom radio and checkbox </title>
+    <style>
+        /* custom checkbox */
+        input[type=checkbox]{
+            display:none;
+        }
+        #check-content{
+            width:10px;
+            height:10px;
+            border:1px solid #ccc;
+            display:inline-block;
+        }
+        #rectangle:checked ~ #check-content{
+            border:1px solid red;
+            background-image:url("imges/tick.png");
+            background-position:center;
+        }
+        #rectangle:checked ~ #check-content:after{
+            height:4px;
+            width:4px;
+        }
+
+        /* custom radio */
+        input[type="radio"]{
+            display:none;
+        }
+        #custom-radio ~ #radio-content{
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            border:1px solid #ccc;
+            display:inline-block;
+            position:relative;
+        }
+        #custom-radio ~ #radio-content #radio-inner-circle{
+            display:none;
+        }
+        #custom-radio:checked ~ #radio-content{
+            border:1px solid red;
+        }
+        #custom-radio:checked ~ #radio-content #radio-inner-circle{ 
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            border: 1px solid red;
+            background-color: red;
+            position: relative;
+            transform:translate(-50%,-50%);
+            top: 50%;
+            left:50%;
+            display:block;
+        }
+        label{
+            height:10px;
+            width:10px;
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+    <label for="rectangle">
+    <input type="checkbox" id="rectangle">
+        <div id="check-content">
+        </div>
+    </label>
+
+    <label for="custom-radio">
+    <input type="radio" id="custom-radio">
+        <div id="radio-content">
+            <div id="radio-inner-circle"></div>
+        </div>
+    </label>
+
+<br>
+<input type="radio" value="dd" id="test">
+</body>
+</html>
