@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		form div p{
+			font-size: 10px;
+			margin-left:50px;
+		}
+		form{
+			height:500px;
+			width: 310px;
+			margin:0 auto;
+		}
+		input{
+			-webkit-appearance:none; /*去除input默认样式*/
+			box-sizing: border-box;
+			height:40px;
+			border: 1px solid #666;
+		}
+		button{
+			height: 40px;
+			width: 85px;
+    		background-color: blue;
+    		border: 1px solid blue;
+    		border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+	<form action="test1_submit" method="get" accept-charset="utf-8" onsubmit="return validate_form(this);">
+		<div>
+			<label value="名称">名称：<input type="text" name="test" value="" id="validate"></label>
+			<button type="submit" id="validate">验证</button>
+			<p id="warning">必填,长度为4-16个字符</p>
+			
+		</div>
+	</form>
+</body>
+<script>
+
+function numofCharacters(string){
+	var count = 0;
+	var chinaSet = /[\u4e00-\u9fa5]/;
+	string.split("").forEach(function(item,index,arr){
+		if(chinaSet.test(item))
+			count = count + 2;
+		else{
+			count = count + 1;
+		}
+	});
+	return count;
+}
+function validate_form(thisform)
+{
+	
+	console.log(thisform);
+	var validateInput = document.getElementById("validate");
+	var lengthOfCharacters = numofCharacters(validateInput.value);
+	console.log(lengthOfCharacters);
+	if(validateInput.value.length==0)
+	{
+		var t = document.getElementById("warning");
+		t.style.color="red";
+		t.innerHTML = "姓名不能为空";
+		document.getElementById("validate").style.borderColor="red";
+		return false;
+	}else if( lengthOfCharacters> 4 && lengthOfCharacters < 16 )
+	{
+		var t = document.getElementById("warning");
+		t.style.color="cyan";
+		t.innerHTML = "名称格式正确";
+		return false;  // 返回true
+	}else{
+		var t = document.getElementById("warning");
+		t.style.color="#666";
+		t.innerHTML = "必填,长度为4-16个字符";
+		return false;
+	}	
+}
+</script>
+</html>
