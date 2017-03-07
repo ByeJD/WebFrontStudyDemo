@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>move_square_1</title>
+</head>
+<style>
+	div#squareContainer{
+		width: 574px;
+		height:574px;
+		display: inline-block;
+		border:1px solid #ccc;
+	}
+	div.square{
+		width:50px;
+		height:50px;
+		float: left;
+		border: 1px solid #eee;
+	}
+	div#horizonal-ruler-container{
+		width: 570px;
+		height: 50px;
+		float:left;
+		border:1px solid #eee;
+	}
+	div#vertical-ruler-container{
+		width: 50px;
+		height: 520px;
+		border:1px solid #ccc;
+		float:left;
+	}
+	div#horizonal-ruler-container .horizonal-ruler{
+		float: left;
+		width: 50px;
+		height:50px;
+		border:1px solid #ccc;
+		
+		text-align: center;
+
+	}
+	/*div#horizonal-ruler-container .horizonal-ruler:first-child{
+		float: left;
+		width: 50px;
+		height:50px;
+		
+		display: inline-block;
+		text-align: center;
+
+	}*/
+	div#vertical-ruler-container .vertical-ruler{
+		float: left;
+		width: 50px;
+		height:50px;
+		display: inline-block;
+		text-align: center;
+		border:1px solid #ccc;
+
+	}
+</style>
+
+<script>
+	var $ = function(id){
+		return document.getElementById(id);
+	}
+	var direction = 0;                // 0-up 1-right 2-down 3-left
+	var curPos = 55;
+	function init(){
+		var t = "";
+		t += "<div id='horizonal-ruler-container'></div>";
+		t += "<div id='vertical-ruler-container'></div>";
+		for (var i = 0; i < 100; i++) {
+			t += "<div class='square' id='square-"+i+"'></div>"
+		}
+		$("squareContainer").innerHTML = t;
+		render("square-"+curPos);           // 初始位置55 第6行第6列
+
+		var t = "<div class='horizonal-ruler'></div>";
+		for (var i = 1; i <= 10; i++) {
+			t += "<div class='horizonal-ruler'>"+i+"</div>"
+		}
+		$("horizonal-ruler-container").innerHTML = t;
+
+		var t = "";
+		for (var i = 1; i <= 10; i++) {
+			t += "<div class='vertical-ruler'>"+i+"</div>"
+		}
+		$("vertical-ruler-container").innerHTML = t;
+	}
+	function render(id){
+		$(id).style.backgroundColor="red";
+		switch(direction){
+			case 0:
+				$(id).innerHTML = "<div style='height:20px;width:50px;background-color:blue;'></div>";
+				break;
+			case 1:
+				$(id).innerHTML = "<div style='height:50px;width:20px;background-color:blue;margin-left:30px;'></div>";
+				break;
+			case 2:
+				$(id).innerHTML = "<div style='height:20px;width:50px;background-color:blue;margin-top:30px;'></div>";
+				break;
+			case 3:
+				$(id).innerHTML = "<div style='height:50px;width:20px;background-color:blue;'></div>";
+				break;
+		}
+	}
+	function action(){
+		if (direction == 0 && curPos >= 10) {
+			curPos -= 10;
+		}else if(direction == 1 && curPos < 99){
+			curPos += 1;
+		}else if(direction == 2 && curPos < 90 ){
+			curPos += 10;
+		}else if(direction == 3 && curPos > 0){
+			curPos -= 1;
+		}
+	}
+	function clean(){
+		$("square-"+curPos).innerHTML = "";
+		$("square-"+curPos).removeAttribute("style");
+	}
+</script>
+<body>
+	<div id="squareContainer">
+	</div>
+	<div id="commandContainer">
+		<input type="text" placeholder="Go" value="Go" id="command-text"><input type="button" value="Go" id="command-button">
+	</div>
+</body>
+<script>
+	init();
+	$("command-button").addEventListener("click",function(){
+		switch($("command-text").value){
+			case "Go":
+				clean();
+				action();
+				render("square-"+curPos);
+				break;
+			case "TUN LEF":
+				direction = (direction+3) % 4;
+				render("square-"+curPos);
+				break;
+			case "TUN RIG":
+				direction = (direction + 1) % 4;
+				render("square-"+curPos);
+				break;
+			case "TUN BAC":
+				direction = (direction + 2) % 4;
+				render("square-"+curPos);
+		}
+	});
+</script>
+</html>
