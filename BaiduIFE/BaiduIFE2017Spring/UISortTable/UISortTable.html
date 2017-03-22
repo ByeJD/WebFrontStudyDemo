@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>UI组件排序表格</title>
+	<style type="text/css" media="screen">
+		*{
+			padding:0;
+			margin:0;
+		}
+		table,th,td{
+			border:1px solid #ccc;
+		}
+		table{
+			border-collapse: collapse;
+		}
+		th,td{
+			width:80px;
+			height:80px;
+		}
+		td{
+			text-align: center;
+		}
+		.triangle-up{
+			content: '';
+			width:0;
+			height:0;
+			border-left:5px solid transparent;
+			border-right:5px solid transparent;
+			border-bottom:5px solid #fff;
+		}
+		.triangle-bottom{
+			content: '';
+			width:0;
+			height:0;
+			border-left:5px solid transparent;
+			border-right:5px solid transparent;
+			border-top:5px solid #fff;
+		}
+		th{
+			background-color: #333;
+			color:#fff;
+			font-family:"Microsoft YaHei";
+		}
+		th div{
+			width:100%;
+			position: relative;
+		}
+		th div .posUp{
+			position: absolute;
+			left:60px;
+			bottom:20px;
+		}
+		th div .posBottom{
+			position: absolute;
+			left:60px;
+			top:20px;
+		}
+		th div .thName{
+			margin-right: 30px;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<caption>UI组件排序表格</caption>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>
+					<div>
+						<span class="thName">语文</span>
+						<span class="triangle-up posUp"></span>
+						<span class="triangle-bottom posBottom"></span>
+					</div>
+				</th>
+				<th>
+					<div>
+						<span class="thName">数学</span>
+						<span class="triangle-up posUp"></span>
+						<span class="triangle-bottom posBottom"></span>
+					</div>
+				</th>
+				<th>
+					<div>
+						<span class="thName">英语</span>
+						<span class="triangle-up posUp"></span>
+						<span class="triangle-bottom posBottom"></span>
+					</div>
+				</th>
+				<th>
+					<div>
+						<span class="thName">总分</span>
+						<span class="triangle-up posUp"></span>
+						<span class="triangle-bottom posBottom"></span>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>小明</td>
+				<td>80</td>
+				<td>80</td>
+				<td>80</td>
+				<td>80</td>
+			</tr>
+			<tr>
+				<td>小红</td>
+				<td>70</td>
+				<td>20</td>
+				<td>90</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>小明</td>
+				<td>80</td>
+				<td>72</td>
+				<td>78</td>
+				<td>93</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+<script>
+
+	/*获取数据*/
+	var t = document.getElementsByTagName("tr");
+	var data = [];
+	for(var i = 1;i<t.length;i++)
+	{
+		data.push(t[i].innerText.split(/\s+/)); /*根据空格分隔*/
+	}
+
+	var p = 2;
+	/*根据传入的值进行排序如：1 2 3.....,对第2 3 4列排序*/
+	data.sort(function (value1,value2) {
+		return value1[p] > value2[p];
+	})
+	
+	/*将拍好序的元素插入*/
+	//var t 
+</script>	
+</html>
