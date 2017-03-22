@@ -33,15 +33,6 @@ function Square(){
 		clearInterval(self.timer);
 		switch (command) {
 			case "Go":
-				// self.action(targetRow,targetCol);
-				// self.timer = setInterval(function(){
-				// 	if (self.direction == 0 ||self.direction==2) {
-				// 		self.moveSubFun(targetRow,self.curRow,"top");
-				// 	}
-				// 	else if(self.direction ==1 || self.direction==3){
-				// 		self.moveSubFun(targetCol,self.curCol,"left");
-				// 	}
-				// },1);
 				self.timer = setInterval(function () {
 					if(targetRow==self.curRow){self.moveSubFun(targetRow,targetCol);}
 					if(targetCol==self.curCol){self.moveSubFun(targetRow,targetCol);}
@@ -52,12 +43,6 @@ function Square(){
 						if(targetRow==self.curRow){self.moveSubFun(targetRow,targetCol);}
 						if(targetCol==self.curCol){self.moveSubFun(targetRow,targetCol);}
 					},1);
-				// if(self.curCol<10){
-				// 	var t = self.curCol + 1;
-				// }
-				// self.timer = setInterval(function(){
-				// 	self.moveSubFun(t,self.curCol,"left");
-				// },1);
 				break;
 			case "TRA RIG":
 				self.timer = setInterval(function () {
@@ -82,6 +67,7 @@ function Square(){
 	};
 	this.temp = function () {
 		alert("0");
+
 	}
 	this.turnAction = function (targetDeg,fn) {
 		clearInterval(self.timer);  // 用自己的timer.
@@ -107,25 +93,29 @@ function Square(){
 				$('targetSquare').style.transform = "rotate("+(deg+speed)+"deg)";
 			}},30);
 		}
-	this.turnDirection = function (command) {
+	this.turnDirection = function (command,fn) {
 		switch (command) {
 			case "TUN LEF":
 				self.direction = (self.direction+3)%4;
-				self.turnAction((self.curDeg - 90));
+				self.turnAction((self.curDeg - 90),fn);
 				break;
 			case "TUN RIG":
 				self.direction = (self.direction+1)%4;
-				self.turnAction((self.curDeg + 90));
+				self.turnAction((self.curDeg + 90),fn);
 				break;
 			case "TUN BAC":
 				self.direction = (self.direction+2)%4;
-				self.turnAction((self.curDeg + 180));
+				self.turnAction((self.curDeg + 180),fn);
 				break;
 		}
 	}	
 	this.style = function (attr) {
 		return this.ele.style[attr];
 	};
+
+	/**
+	 *  根据当前坐标curRow和curCol，移动到目标坐标
+	 */
 	this.moveSubFun= function (targetRow,targetCol) {
 		if(targetRow==self.curRow){
 			if (parseInt(self.style("left")) == (self.squareWidth * targetCol)) {
@@ -155,6 +145,7 @@ function Square(){
 				}
 				document.getElementById("targetSquare").style["top"] = parseInt(self.style("top")) + speed + 'px';	
 			}
+			
 		}
 		
 	};
