@@ -95,12 +95,10 @@
 	}
 	
 	init();
-	function temp () {
-		console.log('temp');
+	function moveAction () {
 		direction = square.direction;
 		action();
 		square.move(targetRow,targetCol,"Go",targetDeg);
-		console.log('d');
 	}
 	$("command-button").addEventListener("click",function(){
 		switch($("command-text").value){
@@ -150,34 +148,32 @@
 				square.move(targetRow,targetCol,$("command-text").value,targetDeg);
 				break;
 			case "MOV LEF": // direction = 3
-				if(square.direction==0)square.turnDirection("TUN LEF",square.temp);
-				if(square.direction==2)square.turnDirection("TUN RIG",temp);
-				if(square.direction==1)square.turnDirection("TUN BAC",temp);
-				
+				if(square.direction==0)square.turnDirection("TUN LEF",moveAction);
+				else if(square.direction==2) {
+					square.turnDirection("TUN RIG",moveAction);
+				}else if(square.direction==1) {
+					square.turnDirection("TUN BAC",moveAction);
+				}else{
+					moveAction();
+				}
 				break;
 			case "MOV RIG": // direction = 1
-				if(square.direction==0)square.turnDirection("TUN RIG");
-				if(square.direction==2)square.turnDirection("TUN LEF");
-				if(square.direction==3)square.turnDirection("TUN BAC");
-				direction = square.direction;
-				action();
-				square.move(targetRow,targetCol,"Go",targetDeg);
+				if(square.direction==0){square.turnDirection("TUN RIG",moveAction);}
+				else if(square.direction==2){square.turnDirection("TUN LEF",moveAction);}
+				else if(square.direction==3){square.turnDirection("TUN BAC",moveAction);}
+				else {moveAction();}
 				break;
 			case "MOV TOP": // direction = 0
-				if(square.direction==1)square.turnDirection("TUN LEF");
-				if(square.direction==2)square.turnDirection("TUN BAC");
-				if(square.direction==3)square.turnDirection("TUN RIG");
-				direction = square.direction;
-				action();
-				square.move(targetRow,targetCol,"Go",targetDeg);
+				if(square.direction==1){square.turnDirection("TUN LEF",moveAction);}
+				else if(square.direction==2){square.turnDirection("TUN BAC",moveAction);}
+				else if(square.direction==3){square.turnDirection("TUN RIG",moveAction);}
+				else {moveAction();}
 				break;
 			case "MOV BOT": // direction = 2
-				if(square.direction==1)square.turnDirection("TUN LEF");
-				if(square.direction==0)square.turnDirection("TUN BAC");
-				if(square.direction==3)square.turnDirection("TUN RIG");
-				direction = square.direction;
-				action();
-				square.move(targetRow,targetCol,"Go",targetDeg);
+				if(square.direction==1){square.turnDirection("TUN LEF",moveAction);}
+				else if(square.direction==0){square.turnDirection("TUN BAC",moveAction);}
+				else if(square.direction==3){square.turnDirection("TUN RIG",moveAction);}
+				else {moveAction();}
 				break;
 		}
 	});
