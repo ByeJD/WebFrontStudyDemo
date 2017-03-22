@@ -121,9 +121,16 @@
 			</tr>
 		</tbody>
 	</table>
+
 </body>
 <script>
-
+	var option={
+		rowNum:5;
+		colNum:5;
+	}
+	var table = function (option) {
+		/* body... */
+	}
 	/*获取数据*/
 	var t = document.getElementsByTagName("tr");
 	var data = [];
@@ -139,6 +146,12 @@
 	})
 	
 	/*将拍好序的元素插入*/
-	//var t 
+	var t = document.getElementsByTagName("tr");
+	for(var i = 1;i<t.length;i++)
+	{
+		for(var j = 0;j<t[i].children.length;j++){
+			t[i].children[j].innerText = data[i-1][j];
+		}
+	}
 </script>	
 </html>
