@@ -62,96 +62,95 @@
 	</style>
 </head>
 <body>
-	<table>
-		<caption>UI组件排序表格</caption>
-		<thead>
-			<tr>
-				<th>姓名</th>
-				<th>
-					<div>
-						<span class="thName">语文</span>
-						<span class="triangle-up posUp"></span>
-						<span class="triangle-bottom posBottom"></span>
-					</div>
-				</th>
-				<th>
-					<div>
-						<span class="thName">数学</span>
-						<span class="triangle-up posUp"></span>
-						<span class="triangle-bottom posBottom"></span>
-					</div>
-				</th>
-				<th>
-					<div>
-						<span class="thName">英语</span>
-						<span class="triangle-up posUp"></span>
-						<span class="triangle-bottom posBottom"></span>
-					</div>
-				</th>
-				<th>
-					<div>
-						<span class="thName">总分</span>
-						<span class="triangle-up posUp"></span>
-						<span class="triangle-bottom posBottom"></span>
-					</div>
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>小明</td>
-				<td>80</td>
-				<td>80</td>
-				<td>80</td>
-				<td>80</td>
-			</tr>
-			<tr>
-				<td>小红</td>
-				<td>70</td>
-				<td>20</td>
-				<td>90</td>
-				<td>10</td>
-			</tr>
-			<tr>
-				<td>小明</td>
-				<td>80</td>
-				<td>72</td>
-				<td>78</td>
-				<td>93</td>
-			</tr>
-		</tbody>
-	</table>
-
+	<div class="tableContainer">
+		
+	</div>
+	
 </body>
 <script>
-	var option={
-		rowNum:5;
-		colNum:5;
-	}
-	var table = function (option) {
-		/* body... */
-	}
-	/*获取数据*/
-	var t = document.getElementsByTagName("tr");
-	var data = [];
-	for(var i = 1;i<t.length;i++)
-	{
-		data.push(t[i].innerText.split(/\s+/)); /*根据空格分隔*/
-	}
 
-	var p = 2;
-	/*根据传入的值进行排序如：1 2 3.....,对第2 3 4列排序*/
-	data.sort(function (value1,value2) {
-		return value1[p] > value2[p];
-	})
-	
-	/*将拍好序的元素插入*/
-	var t = document.getElementsByTagName("tr");
-	for(var i = 1;i<t.length;i++)
-	{
-		for(var j = 0;j<t[i].children.length;j++){
-			t[i].children[j].innerText = data[i-1][j];
-		}
+    var option = {
+        col:5,
+        row:4,
+        sortCol:[1,2,4],/*需要排列的列*/
+		dataSource:{},
+		parentClassName:"tableContainer",
+    };
+	var data={
+		dataThead:["姓名","语文","数学","外语","总分"],
+		dataTbody:[
+			 ["小明","20","30","2","80"],
+			 ["小红","68","90","12","33"],
+			 ["小白","0","23","56","234"]
+		]
 	}
+	option.dataSource = data;   // 
+    /*
+		 表格的列和行
+		 1.在父元素下面创建一个table
+		 2.将data里面的元素填充
+		 3.给三角形绑定排序事件
+	*/
+	
+    function CreateTable(option,fn){
+		var clickInterface = function(e){
+			var target = e.target;
+			if(target.getAttribute("class")=="triangle-up posUp"){
+				option.dataSource.dataTbody.sort(function(value1,value2){
+					return parseInt(value1[target.dataset.num]) >= parseInt(value2[target.dataset.num]);
+				});	
+			}
+			if(target.getAttribute("class")=="triangle-bottom posBottom")
+			{
+				option.dataSource.dataTbody.sort(function(value1,value2){
+					return parseInt(value1[target.dataset.num]) <= parseInt(value2[target.dataset.num]);
+				});	
+			}
+			var t = document.getElementsByTagName("tr");
+			for(var i=1;i<t.length;i++){
+				for(var j=0;j<t[i].children.length;j++){
+					t[i].children[j].innerText = option.dataSource.dataTbody[i-1][j];                      
+				}
+			}
+		};
+		if(fn){
+			clickInterface = fn;
+		}
+		var tableParent = document.querySelector("div."+option.parentClassName);
+		tableParent.innerHTML = "<table><thead><tr></tr></thead><tbody></tbody></table>";
+		
+		var thead = document.querySelector("div."+ option.parentClassName+" table thead tr");
+		var tbody = document.querySelector("div."+ option.parentClassName+" table tbody")
+		var theadHtml = "";
+		var tbodyHtml = "";
+        for(var i= 0;i<option.row;i++){
+			var tbodyHtmlTemp = "";
+			for(var j=0;j<option.col;j++){
+				if(i == 0 && option.sortCol.indexOf(j) == -1 ){
+					theadHtml += "<th>"+option.dataSource.dataThead[j]+"</th>";
+				}else if(i==0 && option.sortCol.indexOf(j) != -1){
+					theadHtml +="<th><div>"      + 
+						        "<span class='thName'>"+option.dataSource.dataThead[j]+"</span>"   +
+						        "<span class='triangle-up posUp' data-num="+j+"></span>" +
+						        "<span class='triangle-bottom posBottom' data-num="+j+"></span>"+
+								"</div></th>";
+				}else{
+					tbodyHtmlTemp +="<td>"+option.dataSource.dataTbody[i-1][j]+"</td>";
+				}	
+			}
+			if(i != 0 )
+				tbodyHtml += "<tr>"+tbodyHtmlTemp+"</tr>";
+		}
+		thead.innerHTML = theadHtml;
+		tbody.innerHTML = tbodyHtml;
+
+		// 绑定事件
+	
+		thead.addEventListener("click",clickInterface)
+	
+    }
+	
+	var createTable = new CreateTable(option);
+
 </script>	
 </html>
