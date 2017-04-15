@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>form_validation_2</title>
+	<link rel="stylesheet" href="">
+		<style type="text/css" media="screen">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		form div p{
+			font-size: 10px;
+			margin-left:90px;
+		}
+		form{
+			height:500px;
+			margin:0 auto;
+			width: 500px;
+		}
+		input{
+			-webkit-appearance:none; /*去除input默认样式*/
+			box-sizing: border-box;
+			height:40px;
+			border: 1px solid #666;
+			font-size: 30px;
+		}
+		button{
+			height: 40px;
+			width: 85px;
+    		background-color: blue;
+    		border: 1px solid blue;
+    		border-radius: 5px;
+		}
+		div > label{
+			height:40px;
+			display: inline-block;
+			width: 450px;
+			font-size: :30px;
+			text-align: right;
+		}
+		form div{
+			margin-bottom: 10px;
+		}
+	</style>
+	<script>
+	function numofCharacters(string){
+	var count = 0;
+	var chinaSet = /[\u4e00-\u9fa5]/;
+	string.split("").forEach(function(item,index,arr){
+		if(chinaSet.test(item))
+			count = count + 2;
+		else{
+			count = count + 1;
+		}
+	});
+	return count;
+}
+		function validateName()
+		{
+			console.log("validateName");
+			var validateInput = document.getElementById("validate_name");
+			var lengthOfCharacters = numofCharacters(validateInput.value);
+			console.log(lengthOfCharacters);
+			if(validateInput.value.length==0)
+			{
+				var t = document.getElementById("require_warning");
+				t.style.color="red";
+				t.innerHTML = "姓名不能为空";
+				document.getElementById("validate_name").style.borderColor="red";
+				return false;
+			}else if( lengthOfCharacters> 4 && lengthOfCharacters < 16 )
+			{
+				var t = document.getElementById("require_warning");
+				t.style.color="cyan";
+				t.innerHTML = "名称格式正确";
+				return false;  // 返回true
+			}else{
+				var t = document.getElementById("require_warning");
+				t.style.color="red";
+				t.innerHTML = "必填,长度为4-16个字符";
+				document.getElementById("validate_name").style.borderColor="red";
+				return false;
+			}	
+		}
+		function validate(id,rule,warningID,warningInfo){
+			var control = document.getElementById(id);
+			var controlWarning = document.getElementById(warningID);
+			if (rule.test(control.value)) {
+				controlWarning.innerHTML = warningInfo;
+			} 
+		}
+		function nameOnfocus(){
+			document.getElementById("require_warning").innerHTML = "必填,长度为4-16个字符";
+		}
+		
+		function validateForm(){
+			return false;
+		}
+		function validateConfirmPS(){
+			if (document.getElementById("ps").value==document.getElementById("psConfirm").value) {
+				document.getElementById("password_confirm_warning").innerHTML="密码验证通过";
+				document.getElementById("password_confirm_warning").style.color="cyan";
+			}else{
+				document.getElementById("password_confirm_warning").innerHTML="密码不一致，请重新输入";
+				document.getElementById("password_confirm_warning").style.color="red";
+			}
+		}
+	</script>	
+</head>
+<body>
+	<form action="test1_submit" method="get" accept-charset="utf-8" onsubmit="return validateForm(this);">
+		<div>
+			<label value="名称" for="validate_name">名称：<input type="text" name="name" value="" id="validate_name" onfocus="nameOnfocus(this)" onblur="validateName()"></label>
+			<p id="require_warning"></p>	
+		</div>
+		<div>
+			<label for="ps">密码：<input type="password" name="password" id="ps"></label>
+			<p id="password_warning"></p>
+		</div>
+		<div>
+			<label for="psConfirm">密码确认：<input type="password" name="passwordConfirm" id="psConfirm" onblur="validateConfirmPS()"></label>
+			<p id="password_confirm_warning"></p>
+		</div>
+		<div>
+			<label for="email">邮箱：<input type="text" name="email" id="email"></label>
+			<p id="emai"></p>
+		</div>
+		<div>
+			<label for="phoneNo">手机：<input type="text" name="phoneNo" id="phoneNo"></label>
+			<p id="phoneNo_warning"></p>
+		</div>
+		<button type="submit" id="validate">验证</button>
+	</form>
+</body>
+</html>

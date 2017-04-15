@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务39：UI组件之冻结表格</title>
+    <style>
+        table,tr,td,th{
+            border-collapse:collapse;
+            border:1px solid black;
+            color:#ccc;
+        }
+
+        table tr{
+            height:30px;
+        }
+        table tr th,table tr td{
+            width:60px;
+            text-align:center;
+        }
+        table thead{
+            background-color:black;
+        }
+        .freezing-table{
+            height:300px;width:330px;
+            overflow:auto;
+            margin-top:300px;
+            position:relative;
+        }
+        #ft-hidden-wrapper{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="freezing-table">
+        <div id="ft-hidden-wrapper">
+            <table class="ft-hidden">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>语文</th>
+                        <th>数学</th>
+                        <th>英语</th>
+                        <th>总分</th>
+                    </tr>
+                </thead>
+            </table>   
+        </div> 
+                
+        <table class="ft">
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>语文</th>
+                    <th>数学</th>
+                    <th>英语</th>
+                    <th>总分</th>
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <td>小黄</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小普</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小希</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小美</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小丽</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小黄</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小普</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小希</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小美</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小丽</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小黄</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小普</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小希</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小美</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小丽</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小黄</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小普</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小希</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小美</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小丽</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小黄</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小普</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小希</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小美</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>小丽</td>
+                    <td>20</td>
+                    <td>10</td>
+                    <td>200</td>
+                    <td>20</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script>
+    /**
+     * 1.监听滚动事件
+     * 2.判断当前的表格距离页面的上方的距离
+     * 3.可能出现的问题---当拖动滚动条时，表头滚动。
+     */
+     document.querySelector(".freezing-table").addEventListener("scroll",function(){
+        if(document.querySelector(".freezing-table").scrollTop >= 30){
+            document.querySelector("#ft-hidden-wrapper").style.position = "absolute";
+            var t = document.querySelector(".freezing-table").scrollTop;
+            console.log(t);
+            document.querySelector("#ft-hidden-wrapper").style.top = t+ "px";
+            document.querySelector("#ft-hidden-wrapper").style.display = "inline-block";
+        }else{
+            document.querySelector("#ft-hidden-wrapper").removeAttribute("style");
+        }
+     });
+
+</script>
+</html>
