@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+	</title>
+</head>
+<style>
+
+	*{
+		padding: 0;
+		margin:0;
+	}
+	div#squareContainer{
+		width: 572px;
+		height:572px;
+
+		position: relative;
+		display: inline-block;
+	}
+	div.square{
+		width:50px;
+		height:50px;
+		float: left;
+		border: 1px solid #eee;
+	}
+	div.ruler{
+		width:50px;
+		height:50px;
+		float: left;
+		border: 1px solid #fff;
+	}
+	div.ruler span{
+		width: 100%;
+		line-height: 50px;
+		text-align:center;
+		display: inline-block;
+		vertical-align: middle;
+	}
+</style>
+<script src="move_square_2.js"></script>
+<script>
+	
+</script>
+<body>
+	<div id="squareContainer">
+	</div>
+	<div id="commandContainer">
+		<input type="text" placeholder="Go" value="Go" id="command-text"><input type="button" value="Go" id="command-button">
+	</div>
+</body>
+<script>
+	var $ = function(id){
+		return document.getElementById(id);
+	}
+	var targetCol = 5,targetRow = 5;
+	var targetDeg = 0;
+	var direction = 0;                // 0-up 1-right 2-down 3-left
+	var square = new Square();
+	function init(){
+		var t = "<div id='targetSquare' style='width:50px;height:50px;background-color:red;position:absolute;border:1px solid #fff'><span style='display:inline-block;width:100%;height:20px;background-color:blue;'></span></div>";
+		var j = 0;
+		for (var i = 0; i < 121; i++) {
+			if( i >= 0 && i <= 10){
+				if(i == 0)
+				{
+					t += "<div class='ruler'></div>";	 // 空出第一个空格
+				}
+				else 
+				{
+					t += "<div class='ruler'><span>"+i+"</span></div>";
+				}
+
+			}else if(i % 11 == 0){
+				t += "<div class='ruler'><span>"+(i / 11)+"</span></div>"
+			}else{
+				t += "<div class='square' id='square-"+j+"'></div>";
+				j++;	
+			}	
+		}
+		$("squareContainer").innerHTML = t;
+		square.init('targetSquare');
+	}
+	
+		function action(){
+		if (direction == 0 && targetRow > 1) {
+			targetRow -= 1;
+		}else if(direction == 1 && targetCol < 10){
+			targetCol += 1;
+		}else if(direction == 2 && targetRow < 10){
+			targetRow += 1;
+		}else if(direction == 3 && targetCol > 1){
+			targetCol -= 1;
+		}
+	}
+	
+	init();
+	function moveAction () {
+		direction = square.direction;
+		action();
+		square.move(targetRow,targetCol,"Go",targetDeg);
+	}
+	$("command-button").addEventListener("click",function(){
+		switch($("command-text").value){
+			
+			case "TUN LEF":
+				square.turnDirection("TUN LEF");
+				direction = square.direction;
+				break;
+			case "TUN RIG":
+				square.turnDirection("TUN RIG");
+				direction = square.direction;
+				break;
+			case "TUN BAC":
+				square.turnDirection("TUN BAC");
+				direction = square.direction;
+				break;
+			case "TRA LEF":
+				if(square.curCol > 1){
+					targetCol = square.curCol - 1;
+ 					targetRow = square.curRow;
+					square.move(targetRow,targetCol,$("command-text").value,targetDeg);
+				}
+				break;
+			case "TRA RIG":
+				if (square.curCol < 10) {
+					targetCol = square.curCol + 1;
+ 					targetRow = square.curRow;
+					square.move(targetRow,targetCol,$("command-text").value,targetDeg);
+				}
+				break;
+			case "TRA BOT":
+				if (square.curRow < 10) {
+					targetRow = square.curRow + 1;
+ 					targetCol = square.Col;
+					square.move(targetRow,targetCol,$("command-text").value,targetDeg);
+				}
+				break;
+			case "TRA TOP":
+				if (square.curRow > 1) {
+					targetRow = square.curRow - 1;
+ 					targetCol = square.Col;
+					square.move(targetRow,targetCol,$("command-text").value,targetDeg);
+				}
+				break;
+			case "Go":
+				action();
+				square.move(targetRow,targetCol,$("command-text").value,targetDeg);
+				break;
+			case "MOV LEF": // direction = 3
+				if(square.direction==0)square.turnDirection("TUN LEF",moveAction);
+				else if(square.direction==2) {
+					square.turnDirection("TUN RIG",moveAction);
+				}else if(square.direction==1) {
+					square.turnDirection("TUN BAC",moveAction);
+				}else{
+					moveAction();
+				}
+				break;
+			case "MOV RIG": // direction = 1
+				if(square.direction==0){square.turnDirection("TUN RIG",moveAction);}
+				else if(square.direction==2){square.turnDirection("TUN LEF",moveAction);}
+				else if(square.direction==3){square.turnDirection("TUN BAC",moveAction);}
+				else {moveAction();}
+				break;
+			case "MOV TOP": // direction = 0
+				if(square.direction==1){square.turnDirection("TUN LEF",moveAction);}
+				else if(square.direction==2){square.turnDirection("TUN BAC",moveAction);}
+				else if(square.direction==3){square.turnDirection("TUN RIG",moveAction);}
+				else {moveAction();}
+				break;
+			case "MOV BOT": // direction = 2
+				if(square.direction==1){square.turnDirection("TUN LEF",moveAction);}
+				else if(square.direction==0){square.turnDirection("TUN BAC",moveAction);}
+				else if(square.direction==3){square.turnDirection("TUN RIG",moveAction);}
+				else {moveAction();}
+				break;
+		}
+	});
+</script>
+</html>
